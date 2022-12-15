@@ -14,6 +14,19 @@ return new class extends Migration
     public function up()
     {
         //
+        Schema::create('libros', function (Blueprint $table) {
+            
+            $table->engine="InnoDB";
+            $table->bigIncrements('id');
+            $table->bigInteger('categoria_id')->unsigned();
+            $table->string('nombre');
+            $table->string('foto');
+            
+            $table->timestamps();
+
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete("cascade");
+            
+        });
     }
 
     /**
