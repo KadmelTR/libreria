@@ -52,7 +52,9 @@
                                                 {{ $libro->categoria->nombre }}
                                             </td>
 											<td>{{ $libro->nombre }}</td>
-											<td>{{ $libro->foto }}</td>
+											<td>
+                                                <img src="{{ asset('storage').'/'.$libro->foto }}" alt="{{ $libro->foto }}">
+                                            </td>
 
                                             <td>
                                                 <form action="{{ route('libros.destroy',$libro->id) }}" method="POST">

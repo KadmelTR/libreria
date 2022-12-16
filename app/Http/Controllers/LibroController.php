@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Libro;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 /**
  * Class LibroController
  * @package App\Http\Controllers
@@ -19,7 +19,7 @@ class LibroController extends Controller
      */
     public function index()
     {
-        $libros = Libro::paginate();
+        $libros = Libro::paginate(5);
 
         return view('libro.index', compact('libros'))
             ->with('i', (request()->input('page', 1) - 1) * $libros->perPage());
@@ -47,8 +47,13 @@ class LibroController extends Controller
     public function store(Request $request)
     {
         request()->validate(Libro::$rules);
-
-        $libro = Libro::create($request->all());
+        
+        if($request->hasFile('foto')){
+            $libro['foto']=$request->file('foto')->store('uploads','public');
+            $libro = Libro::create($request->all());
+        }
+        
+        
 
         return redirect()->route('libros.index')
             ->with('success', 'Libro created successfully.');

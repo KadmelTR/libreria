@@ -13,8 +13,10 @@
             {!! $errors->first('nombre', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
-            {{ Form::label('foto') }}
-            {{ Form::text('foto', $libro->foto, ['class' => 'form-control' . ($errors->has('foto') ? ' is-invalid' : ''), 'placeholder' => 'Foto']) }}
+            <img src="{{ asset('storage').'/'.$libro->foto }}" alt="{{ $libro->foto }}">
+            <br>
+            {{ Form::label('Portada') }}
+            {{ Form::file('foto', ['class' => 'form-control' . ($errors->has('foto') ? ' is-invalid' : ''), 'placeholder' => 'Foto']) }}
             {!! $errors->first('foto', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 
